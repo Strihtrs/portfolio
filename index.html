@@ -90,43 +90,40 @@
           });
           canvas.height = viewport.height;
           canvas.width = viewport.width;
-          page
-            .render({
-              canvasContext: canvas.getContext("2d"),
-              viewport: viewport,
-            })
-            .then(function () {
-              return page.getAnnotations();
-            })
-            .then(function (annotationData) {
-              // PDF canvas
-              var pdf_canvas = $("#pdf-canvas");
+          page.render({
+            canvasContext: canvas.getContext("2d"),
+            viewport: viewport,
+          });
 
-              // Canvas offset
-              var canvas_offset = pdf_canvas.offset();
+          page.getAnnotations().then(function (annotationData) {
+            // PDF canvas
+            var pdf_canvas = $("#pdf-canvas");
 
-              // Canvas height
-              var canvas_height = pdf_canvas.get(0).height;
+            // Canvas offset
+            var canvas_offset = pdf_canvas.offset();
 
-              // Canvas width
-              var canvas_width = pdf_canvas.get(0).width;
+            // Canvas height
+            var canvas_height = pdf_canvas.get(0).height;
 
-              // CSS for annotation layer
-              $("#annotation-layer").css({
-                left: canvas_offset.left + "px",
-                top: canvas_offset.top + "px",
-                height: canvas_height + "px",
-                width: canvas_width + "px",
-              });
+            // Canvas width
+            var canvas_width = pdf_canvas.get(0).width;
 
-              // Render the annotation layer
-              pdfjsLib.AnnotationLayer.render({
-                viewport: viewport.clone({ dontFlip: true }),
-                div: $("#annotation-layer").get(0),
-                annotations: annotationData,
-                page: page,
-              });
+            // CSS for annotation layer
+            $("#annotation-layer").css({
+              left: canvas_offset.left + "px",
+              top: canvas_offset.top + "px",
+              height: canvas_height + "px",
+              width: canvas_width + "px",
             });
+
+            // Render the annotation layer
+            pdfjsLib.AnnotationLayer.render({
+              viewport: viewport.clone({ dontFlip: true }),
+              div: $("#annotation-layer").get(0),
+              annotations: annotationData,
+              page: page,
+            });
+          });
         });
       }
     </script>
