@@ -6,9 +6,13 @@
     <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 
     <style>
-      #the-canvas {
-        border: 1px solid black;
+      body {
+        margin: 0 auto;
+      }
+
+      #pdf-viewer {
         direction: ltr;
+        width: 100%;
       }
     </style>
 
@@ -27,44 +31,33 @@
 
       // Asynchronous download of PDF
       var loadingTask = pdfjsLib.getDocument("portfolio_kurz.pdf");
-      loadingTask.promise.then(
-        function (pdf) {
-          console.log("PDF loaded");
+      loadingTask.promise.then(function (pdf) {
+        thePdf = pdf;
+        viewer = document.getElementById("pdf-viewer");
 
-          // Fetch the first page
-          var pageNumber = 1;
-          pdf.getPage(pageNumber).then(function (page) {
-            console.log("Page loaded");
-
-            var scale = 1.5;
-            var viewport = page.getViewport({ scale: scale });
-
-            // Prepare canvas using PDF page dimensions
-            var canvas = document.getElementById("the-canvas");
-            var context = canvas.getContext("2d");
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            // Render PDF page into canvas context
-            var renderContext = {
-              canvasContext: context,
-              viewport: viewport,
-            };
-            var renderTask = page.render(renderContext);
-            renderTask.promise.then(function () {
-              console.log("Page rendered");
-            });
-          });
-        },
-        function (reason) {
-          // PDF loading error
-          console.error(reason);
+        for (page = 1; page <= pdf.numPages; page++) {
+          canvas = document.createElement("canvas");
+          canvas.className = "pdf-page-canvas";
+          viewer.appendChild(canvas);
+          renderPage(page, canvas);
         }
-      );
+      });
+
+      function renderPage(pageNumber, canvas) {
+        thePdf.getPage(pageNumber).then(function (page) {
+          viewport = page.getViewport({ scale: scale });
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          page.render({
+            canvasContext: canvas.getContext("2d"),
+            viewport: viewport,
+          });
+        });
+      }
     </script>
 
     <h1>Danielka portfolio</h1>
 
-    <canvas id="the-canvas"></canvas>
+    <div id="pdf-viewer"></div>
   </body>
 </html>
