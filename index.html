@@ -14,6 +14,14 @@
         direction: ltr;
         width: 100%;
       }
+
+      .pdf-page-canvas {
+        margin-bottom: 2px;
+      }
+
+      .pdf-page-canvas:last-of-type {
+        margin-bottom: 0px;
+      }
     </style>
 
     <script>
@@ -49,7 +57,7 @@
         thePdf.getPage(pageNumber).then(function (page) {
           viewport = page.getViewport({ scale: scale });
           canvas.height = viewport.height;
-          canvas.width = viewport.width;
+          canvas.width = viewport.width - 16;
           page.render({
             canvasContext: canvas.getContext("2d"),
             viewport: viewport,
@@ -57,8 +65,6 @@
         });
       }
     </script>
-
-    <h1>Danielka portfolio</h1>
 
     <div id="pdf-viewer"></div>
   </body>
