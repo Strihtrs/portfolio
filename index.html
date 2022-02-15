@@ -5,6 +5,7 @@
   </head>
   <body>
     <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="https://mozilla.github.io/pdf.js/web/viewer.js"></script>
 
     <style>
       body {
@@ -61,6 +62,13 @@
 
       // Loaded via <script> tag, create shortcut to access PDF.js exports.
       var pdfjsLib = window["pdfjs-dist/build/pdf"];
+      var pdfjsViewer = window["pdfjs-dist/web/pdf_viewer"];
+
+      var eventBus = new pdfjsViewer.EventBus();
+
+      var pdfLinkService = new pdfjsViewer.PDFLinkService({
+        eventBus: eventBus,
+      });
 
       var thePdf = null;
       var scale = 1;
@@ -73,6 +81,7 @@
       loadingTask.promise.then(function (pdf) {
         thePdf = pdf;
         viewer = document.getElementById("pdf-viewer");
+        pdfLinkService.setDocument(pdf, null);
 
         for (page = 1; page <= pdf.numPages; page++) {
           canvas = document.createElement("canvas");
