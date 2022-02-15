@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>Portfolio Daniela</title>
     <base href="https://mozilla.github.io" />
   </head>
   <body>
@@ -55,7 +56,9 @@
 
       function renderPage(pageNumber, canvas) {
         thePdf.getPage(pageNumber).then(function (page) {
-          viewport = page.getViewport({ scale: scale });
+          viewport = page.getViewport(
+            canvas.width / page.getViewport(1.0).width
+          );
           canvas.height = viewport.height;
           canvas.width = viewport.width;
           page.render({
