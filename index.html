@@ -57,7 +57,7 @@
       function renderPage(pageNumber, canvas) {
         thePdf.getPage(pageNumber).then(function (page) {
           viewport = page.getViewport(
-            canvas.width / page.getViewport(1.0).width
+            canvas.width / page.getViewport({ scale: scale }).width
           );
           canvas.height = viewport.height;
           canvas.width = viewport.width;
