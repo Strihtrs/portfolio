@@ -110,12 +110,10 @@
             var canvas_width = pdf_canvas.offsetWidth;
 
             // CSS for annotation layer
-            annotation_layer.css({
-              left: canvas_left + "px",
-              top: canvas_top + "px",
-              height: canvas_height + "px",
-              width: canvas_width + "px",
-            });
+            annotation_layer.style.left = canvas_left + "px";
+            annotation_layer.style.top = canvas_top + "px";
+            annotation_layer.style.height = canvas_height + "px";
+            annotation_layer.style.width = canvas_width + "px";
 
             // Render the annotation layer
             pdfjsLib.AnnotationLayer.render({
