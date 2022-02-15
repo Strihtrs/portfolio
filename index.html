@@ -104,15 +104,18 @@
             var canvas_offset = pdf_canvas.offset();
 
             // Canvas height
-            var canvas_height = pdf_canvas.get(0).height;
+            var canvas_height = pdf_canvas.offsetHeight;
+            var canvas_width = pdf_canvas.offsetWidth;
+            var canvas_top = pdf_canvas.offsetTop;
+            var canvas_left = pdf_canvas.offsetLeft;
 
             // Canvas width
-            var canvas_width = pdf_canvas.get(0).width;
+            var canvas_width = pdf_canvas.offsetWidth;
 
             // CSS for annotation layer
             annotation_layer.css({
-              left: canvas_offset.left + "px",
-              top: canvas_offset.top + "px",
+              left: canvas_left + "px",
+              top: canvas_top + "px",
               height: canvas_height + "px",
               width: canvas_width + "px",
             });
@@ -120,7 +123,7 @@
             // Render the annotation layer
             pdfjsLib.AnnotationLayer.render({
               viewport: viewport.clone({ dontFlip: true }),
-              div: annotation_layer.get(0),
+              div: annotation_layer,
               annotations: annotationData,
               page: page,
             });
