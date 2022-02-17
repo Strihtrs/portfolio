@@ -5,7 +5,7 @@
   </head>
   <body>
     <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-    <script src="https://mozilla.github.io/pdf.js/web/viewer.js"></script>
+    <!-- <script src="https://mozilla.github.io/pdf.js/web/viewer.js"></script> -->
 
     <style>
       body {
@@ -62,13 +62,13 @@
 
       // Loaded via <script> tag, create shortcut to access PDF.js exports.
       var pdfjsLib = window["pdfjs-dist/build/pdf"];
-      var pdfjsViewer = window["pdfjs-dist/web/pdf_viewer"];
+      // var pdfjsViewer = window["pdfjs-dist/web/pdf_viewer"];
 
-      var eventBus = new pdfjsViewer.EventBus();
+      // var eventBus = new pdfjsViewer.EventBus();
 
-      var pdfLinkService = new pdfjsViewer.PDFLinkService({
-        eventBus: eventBus,
-      });
+      // var pdfLinkService = new pdfjsViewer.PDFLinkService({
+      //   eventBus: eventBus,
+      // });
 
       var thePdf = null;
       var scale = 1;
@@ -104,39 +104,39 @@
             viewport: viewport,
           });
 
-          page.getAnnotations().then(function (annotationData) {
-            // PDF canvas
-            var pdf_canvas = document.getElementById("pdf-viewer");
-            var annotation_layer = document.getElementById("annotation-layer");
+          // page.getAnnotations().then(function (annotationData) {
+          //   // PDF canvas
+          //   var pdf_canvas = document.getElementById("pdf-viewer");
+          //   var annotation_layer = document.getElementById("annotation-layer");
 
-            // Canvas height
-            var canvas_height = pdf_canvas.offsetHeight;
-            var canvas_width = pdf_canvas.offsetWidth;
-            var canvas_top = pdf_canvas.offsetTop;
-            var canvas_left = pdf_canvas.offsetLeft;
+          //   // Canvas height
+          //   var canvas_height = pdf_canvas.offsetHeight;
+          //   var canvas_width = pdf_canvas.offsetWidth;
+          //   var canvas_top = pdf_canvas.offsetTop;
+          //   var canvas_left = pdf_canvas.offsetLeft;
 
-            // Canvas width
-            var canvas_width = pdf_canvas.offsetWidth;
+          //   // Canvas width
+          //   var canvas_width = pdf_canvas.offsetWidth;
 
-            // CSS for annotation layer
-            annotation_layer.style.left = canvas_left + "px";
-            annotation_layer.style.top = canvas_top + "px";
-            annotation_layer.style.height = canvas_height + "px";
-            annotation_layer.style.width = canvas_width + "px";
+          // CSS for annotation layer
+          // annotation_layer.style.left = canvas_left + "px";
+          // annotation_layer.style.top = canvas_top + "px";
+          // annotation_layer.style.height = canvas_height + "px";
+          // annotation_layer.style.width = canvas_width + "px";
 
-            // Render the annotation layer
-            pdfjsLib.AnnotationLayer.render({
-              viewport: viewport.clone({ dontFlip: true }),
-              div: annotation_layer,
-              annotations: annotationData,
-              page: page,
-            });
-          });
+          // Render the annotation layer
+          // pdfjsLib.AnnotationLayer.render({
+          //   viewport: viewport.clone({ dontFlip: true }),
+          //   div: annotation_layer,
+          //   annotations: annotationData,
+          //   page: page,
+          // });
+          // });
         });
       }
     </script>
 
     <div id="pdf-viewer"></div>
-    <div id="annotation-layer"></div>
+    <!-- <div id="annotation-layer"></div> -->
   </body>
 </html>
