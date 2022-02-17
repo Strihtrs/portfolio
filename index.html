@@ -81,7 +81,7 @@
       loadingTask.promise.then(function (pdf) {
         thePdf = pdf;
         viewer = document.getElementById("pdf-viewer");
-        pdfLinkService.setDocument(pdf, null);
+        // pdfLinkService.setDocument(pdf, null);
 
         for (page = 1; page <= pdf.numPages; page++) {
           canvas = document.createElement("canvas");
